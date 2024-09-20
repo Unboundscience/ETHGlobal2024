@@ -1,17 +1,12 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+// app/layout.tsx
 import "./globals.css";
+import type { Metadata } from "next";
+import { headers } from "next/headers";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { cookieToInitialState } from "wagmi";
+
+import { config } from "./config";
+import Web3ModalProvider from "./context";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,12 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <Web3ModalProvider initialState={initialState}>
+          {children}
+        </Web3ModalProvider>
       </body>
     </html>
   );
