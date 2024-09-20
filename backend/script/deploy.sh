@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # USDC.sol
-out=$(forge clean && forge create ./src/USDC.sol:GovernanceToken --rpc-url "${RPC_URL:=sapphire-localnet}" --private-key $PRIVATE_KEY --legacy --force --constructor-args $OWNER | grep "Deployed to:" | tr -d '[:space:]')
+out=$(forge clean && forge create ./src/USDC.sol:USDC --rpc-url "${RPC_URL:=sapphire-localnet}" --private-key $PRIVATE_KEY --legacy --force --constructor-args $OWNER | grep "Deployed to:" | tr -d '[:space:]')
 USDC_ADDRESS=$(echo $out | cut -d':' -f2-)
 echo "usdc contract address: $USDC_ADDRESS"
 
