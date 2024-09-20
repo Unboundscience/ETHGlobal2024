@@ -1,9 +1,18 @@
 [profile.default]
-src = "src"
-out = "out"
-libs = ["lib"]
+evm_version = "cancun"
+solc = "0.8.24"
+auto_detect_solc = false
+via_ir = true
+ast = false
 remappings = [
   "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
 ]
+
+[profile.ci]
+verbosity = 5
+
+[rpc_endpoints]
+sapphire-testnet = "https://testnet.sapphire.oasis.io"
+sapphire-localnet = "http://localhost:8845"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
