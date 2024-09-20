@@ -6,11 +6,11 @@ import { cookieStorage, createStorage } from "wagmi";
 import { mainnet, sepolia } from "wagmi/chains";
 
 // Your Reown Cloud project ID
-export const projectId = "49ebd0d45eb047918ba810c68dd748d5";
+export const projectId = "5bf772bec14a93f5b89e91c2e3994231";
 
 // Create a metadata object
 const metadata = {
-  name: "resume",
+  name: "unbound finance",
   description: "AppKit Example",
   url: "https://reown.com/appkit", // origin must match your domain & subdomain
   icons: ["https://assets.reown.com/reown-profile-pic.png"],
