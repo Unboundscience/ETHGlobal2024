@@ -1,0 +1,6 @@
+[submodule "backend/treasury/lib/forge-std"]
+	path = backend/treasury/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "backend/treasury/lib/openzeppelin-contracts"]
+	path = backend/treasury/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
