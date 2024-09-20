@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        retro: ['"Courier New"', "Courier", "monospace"], // 90's web style font
+      },
     },
   },
   plugins: [],
