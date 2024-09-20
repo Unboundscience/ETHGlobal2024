@@ -2,7 +2,7 @@
 
 ## build
 ```
-forge build --force ./src/Treasury.sol
+forge build --force ./src
 ```
 
 ## deployment
