@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Navbar from "./components/navbar";
 
 const Home: React.FC = () => {
   const texts = [
@@ -41,12 +42,15 @@ const Home: React.FC = () => {
   }, [subIndex, forward, index, texts]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center  text-white font-retro px-4">
-      <h1 className="text-2xl md:text-4xl lg:text-5xl mb-6 text-center">
-        {texts[index].substring(0, subIndex)}
-        <span className="blinking-cursor">|</span>
-      </h1>
-      <w3m-button />
+    <div>
+      <Navbar />
+      <div className="min-h-screen flex flex-col items-center justify-center  text-white font-retro px-4">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl mb-6 text-center">
+          {texts[index].substring(0, subIndex)}
+          <span className="blinking-cursor">|</span>
+        </h1>
+        <w3m-button />
+      </div>
     </div>
   );
 };
