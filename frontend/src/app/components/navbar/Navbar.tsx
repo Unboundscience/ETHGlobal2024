@@ -13,15 +13,20 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-500 text-white p-3">
+    <nav className="bg-teal-500 text-black p-3 border-b-4 border-black retro-navbar">
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo Section */}
         <Link href="/" className="flex items-center space-x-3">
-          <span className="font-bold text-xl">Unbound science</span>
+          <span className="font-extrabold text-2xl text-yellow-300">
+            Unbound Science
+          </span>
         </Link>
         <w3m-button />
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-2xl focus:outline-none">
+          <button
+            onClick={toggleMenu}
+            className="text-3xl focus:outline-none text-black"
+          >
             {isOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
@@ -29,7 +34,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden mt-5 space-y-5 text-center transition-all duration-300 ${
+        className={`md:hidden mt-5 text-center transition-all duration-300 ${
           isOpen ? "block" : "hidden"
         }`}
       >
