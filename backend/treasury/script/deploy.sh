@@ -1,1 +1,0 @@
-forge clean && forge create ./src/Treasury.sol:Treasury --rpc-url "${RPC_URL:=sapphire-localnet}" --private-key $PRIVATE_KEY --legacy --constructor-args $OWNER
