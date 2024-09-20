@@ -9,7 +9,7 @@ contract Treasury is Ownable {
 
   constructor(address initialOwner, IERC20 _token) Ownable(initialOwner) {
     token = _token;
-    token.approve(address(this), type(uint).max);
+    require(token.approve(address(this), type(uint).max));
   }
 
   modifier onlyDonor() {
