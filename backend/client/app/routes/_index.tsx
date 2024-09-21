@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const ca = "0xbA0F335254b7740826bA0d745B19f0b1c377b37C"
+  const ca = "0xb8678E5ABc3e4124a5cb294E28208340A32133bB"
   // const [auth, setAuth] = useState({})
 
   // const onGetAuth = async () => {
@@ -77,7 +77,10 @@ export default function Index() {
     const signer = provider.getSigner();
 
     const contract = new ethers.Contract(ca, treasuryAbi.abi, signer);
-    await contract.getProposal(1);
+    let res = await contract.getProposal(0);
+    console.log('getProposal', res);
+    res = await contract.getProposals(0,50);
+    console.log('getProposals', res);
   }
 
   return (
