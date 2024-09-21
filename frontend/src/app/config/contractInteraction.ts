@@ -1,10 +1,10 @@
-import { ethers, utils } from "ethers";
+import { ethers, utils, Contract } from "ethers";
 import addresses from "./addresses.json";
-import usdcOut from "../../../../backend/out/USDC.sol/USDC.json";
+// import usdcOut from "../../../../backend/out/USDC.sol/USDC.json";
 import governanceOut from "../../../../backend/out/GovernanceToken.sol/GovernanceToken.json";
-import treasuryOut from "../../../../backend/out/Treasury.sol/Treasury.json";
+// import treasuryOut from "../../../../backend/out/Treasury.sol/Treasury.json";
 
-let governanceContract;
+let governanceContract: Contract;
 // let usdcContract;
 // let treasuryContract;
 
