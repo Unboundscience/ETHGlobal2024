@@ -1,5 +1,5 @@
 // app/layout.tsx
-import "./globals.css";
+import "./globals.scss";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 
@@ -18,13 +18,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(config, headers().get("cookie"));
+  const cookies = headers().get("cookie");
   return (
     <html lang="en">
       <body>
-        <Web3ModalProvider initialState={initialState}>
-          {children}
-        </Web3ModalProvider>
+        <Web3ModalProvider cookies={cookies}>{children}</Web3ModalProvider>
       </body>
     </html>
   );
