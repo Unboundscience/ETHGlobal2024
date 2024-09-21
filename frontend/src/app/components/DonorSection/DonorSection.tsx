@@ -1,7 +1,27 @@
+"use client";
+import {
+  getProposals,
+  providerHandler,
+} from "@/app/config/contractInteraction";
+import { BigNumber } from "ethers";
+import { useEffect } from "react";
+
 function DonorSection() {
   const handleMint = () => {
     console.log("Mint");
   };
+  //   useEffect(() => {
+  //     (async () => {
+  //       await providerHandler();
+  //       const proposals = await getProposals();
+  //       const p = proposals.filter((v) => {
+  //         const bn = BigNumber.from(v[0]._hex);
+  //         const fund = bn.toNumber();
+  //         return fund > 0;
+  //       });
+  //       console.log(p);
+  //     })();
+  //   }, []);
 
   return (
     <>
