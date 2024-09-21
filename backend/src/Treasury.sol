@@ -143,7 +143,9 @@ contract Treasury is Ownable {
     // require(offset + limit < totalProposals);
     Proposal[] memory _proposals = new Proposal[](limit);
     for (uint i = offset;i - offset < limit; i++) {
-      _proposals[i] = proposals[i];
+      if (proposals[i].fund > 0) {
+        _proposals[i] = proposals[i];
+      }
     }
     return _proposals;
   }
