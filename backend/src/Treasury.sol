@@ -132,7 +132,7 @@ contract Treasury is Ownable {
       isApproved: false
     });
     totalProposals++;
-    return totalProposals;
+    return totalProposals-1;
   }
 
   // function getProposals(SignIn calldata auth, uint offset, uint limit) external view 
