@@ -51,26 +51,30 @@ contract Treasury is Ownable {
       ))
     ));
     address recovered_address = ecrecover(authdataDigest, uint8(auth.rsv.v), auth.rsv.r, auth.rsv.s);
-    require( auth.user == recovered_address, "Invalid Sign-In" );
+    require(auth.user == recovered_address, "Invalid Sign-In");
     _;
   }
 
-  modifier onlyDonor(address user) {
+  // modifier onlyDonor(address user) {
+  modifier onlyDonor() {
     require(donors[msg.sender]);
     _;
   }
 
-  modifier onlyResearcher(address user) {
+  // modifier onlyResearcher(address user) {
+  modifier onlyResearcher() {
     require(researchers[msg.sender]);
     _;
   }
 
-  modifier onlyApprover(address user) {
+  // modifier onlyApprover(address user) {
+  modifier onlyApprover() {
     require(approvers[msg.sender]);
     _;
   }
 
-  modifier onlyDebug(address user) {
+  // modifier onlyDebug(address user) {
+  modifier onlyDebug() {
     require(owner() == msg.sender);
     _;
   }
@@ -112,7 +116,11 @@ contract Treasury is Ownable {
     approvers[approver] = true;
   }
 
-  function propose(SignIn calldata auth, uint fund) external onlyResearcher(auth.user) authenticated(auth) returns (uint) {
+  // function propose(SignIn calldata auth, uint fund) external 
+  function propose(uint fund) external 
+  // onlyResearcher(auth.user) authenticated(auth) 
+  onlyResearcher
+  returns (uint) {
     require(fund > 0);
     proposals[totalProposals] = Proposal({
       fund: fund,
@@ -123,10 +131,15 @@ contract Treasury is Ownable {
       totalYes: 0,
       isApproved: false
     });
-    return totalProposals++;
+    totalProposals++;
+    return totalProposals;
   }
 
-  function getProposals(SignIn calldata auth, uint offset, uint limit) external view onlyDonor(auth.user) authenticated(auth) returns (Proposal[] memory) {
+  // function getProposals(SignIn calldata auth, uint offset, uint limit) external view 
+  function getProposals(uint offset, uint limit) external view 
+  // onlyDonor(auth.user) authenticated(auth) 
+  onlyDonor() 
+  returns (Proposal[] memory) {
     require(offset + limit < totalProposals);
     Proposal[] memory _proposals = new Proposal[](limit);
     for (uint i = offset;i - offset < limit; i++) {
@@ -135,12 +148,20 @@ contract Treasury is Ownable {
     return _proposals;
   }
 
-  function getProposal(SignIn calldata auth, uint proposalId) external view onlyDonor(auth.user) authenticated(auth) returns (Proposal memory) {
+  // function getProposal(SignIn calldata auth, uint proposalId) external view 
+  function getProposal(uint proposalId) external view 
+  // onlyDonor(auth.user) authenticated(auth) 
+  onlyDonor()
+  returns (Proposal memory) {
     require(proposalId < totalProposals);
     return proposals[proposalId];
   }
 
-  function approve(SignIn calldata auth, uint proposalId) external onlyApprover(auth.user) authenticated(auth) {
+  // function approve(SignIn calldata auth, uint proposalId) external 
+  function approve(uint proposalId) external 
+  // onlyApprover(auth.user) authenticated(auth) 
+  onlyApprover() 
+  {
     require(proposalId < totalProposals);
     require(!proposals[proposalId].isApproved);
     require(block.timestamp > proposals[proposalId].createdAt + proposals[proposalId].period);
@@ -148,7 +169,11 @@ contract Treasury is Ownable {
     proposals[proposalId].isApproved = true;
   }
 
-  function vote(SignIn calldata auth, uint proposalId, bool yes) external onlyDonor(auth.user) authenticated(auth) {
+  // function vote(SignIn calldata auth, uint proposalId, bool yes) external 
+  function vote(uint proposalId, bool yes) external 
+  // onlyDonor(auth.user) authenticated(auth) 
+  onlyDonor() 
+  {
     require(donors[msg.sender]);
     require(proposalId < totalProposals);
     require(!proposals[proposalId].isApproved);
@@ -160,14 +185,22 @@ contract Treasury is Ownable {
     }
   }
 
-  function deposit(SignIn calldata auth, uint _amount) external onlyDonor(auth.user) authenticated(auth) {
+  // function deposit(SignIn calldata auth, uint _amount) external 
+  function deposit(uint _amount) external 
+  // onlyDonor(auth.user) authenticated(auth) 
+  onlyDonor() 
+  {
     require(donors[msg.sender]);
     require(token.allowance(msg.sender, address(this)) >= _amount);
     require(token.balanceOf(msg.sender) >= _amount);
     require(token.transfer(address(this), _amount));
   }
 
-  function withdraw(SignIn calldata auth, uint proposalId) external onlyResearcher(auth.user) authenticated(auth) {
+  // function withdraw(SignIn calldata auth, uint proposalId) external 
+  function withdraw(uint proposalId) external 
+  // onlyResearcher(auth.user) authenticated(auth) 
+  onlyResearcher()
+  {
     require(researchers[msg.sender]);
     require(proposals[proposalId].fund > 0);
     require(proposals[proposalId].isApproved);
@@ -175,13 +208,21 @@ contract Treasury is Ownable {
     require(token.transferFrom(address(this), msg.sender, proposals[proposalId].fund));
   }
 
-  function setThreshold(SignIn calldata auth, uint proposalId, uint8 threshold) external onlyDebug(auth.user) authenticated(auth) {
+  // function setThreshold(SignIn calldata auth, uint proposalId, uint8 threshold) external 
+  function setThreshold(uint proposalId, uint8 threshold) external 
+  // onlyDebug(auth.user) authenticated(auth) 
+  onlyDebug()
+  {
     require(proposalId < totalProposals);
     require(threshold >= 0 && threshold <= 100);
     proposals[proposalId].threshold = threshold;
   }
 
-  function setPeriod(SignIn calldata auth, uint proposalId, uint period) external onlyDebug(auth.user) authenticated(auth) {
+  // function setPeriod(SignIn calldata auth, uint proposalId, uint period) external 
+  function setPeriod(uint proposalId, uint period) external 
+  // onlyDebug(auth.user) authenticated(auth) 
+  onlyDebug()
+  {
     require(period >= 0 && period <= 60 * 60 * 24);
     proposals[proposalId].period = period;
   }
