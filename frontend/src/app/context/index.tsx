@@ -3,7 +3,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { config, projectId } from "../config";
+import { config, projectId, wagmiAdapter } from "../config";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createAppKit } from "@reown/appkit/react";
@@ -38,6 +38,7 @@ const metadata = {
 };
 
 const modal = createAppKit({
+  adapters: [wagmiAdapter],
   projectId,
   networks: [mainnet, arbitrum, avalanche, base, optimism, polygon],
   defaultNetwork: mainnet,
