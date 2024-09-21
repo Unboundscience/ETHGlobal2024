@@ -4,6 +4,12 @@ import { Loader } from "../loader";
 import { DonorSection } from "../DonorSection";
 import { ResearcherSection } from "../ResearcherSection";
 import { FaArrowLeft } from "react-icons/fa";
+import { Londrina_Solid } from "@next/font/google";
+const londrina = Londrina_Solid({
+  weight: ["300"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 function SessionBox() {
   const [passLoading, setPassloading] = useState(false);
@@ -33,9 +39,11 @@ function SessionBox() {
                   <div className="flex items-center">
                     <FaArrowLeft
                       onClick={() => setShowSection(false)}
-                      className="text-white"
+                      className="text-white absolute left-0 ml-10"
                     />
-                    <h1 className="text-lg text-white ml-5 font-semibold">
+                    <h1
+                      className={`text-3xl text-white font-semibold ${londrina.className}`}
+                    >
                       Donor
                     </h1>
                   </div>
@@ -47,9 +55,11 @@ function SessionBox() {
                     <div className="flex items-center">
                       <FaArrowLeft
                         onClick={() => setShowSection(false)}
-                        className="text-white"
+                        className="text-white absolute left-0 ml-10"
                       />
-                      <h1 className="text-lg text-white ml-5 font-semibold">
+                      <h1
+                        className={`text-3xl text-white font-semibold ${londrina.className}`}
+                      >
                         Researcher
                       </h1>
                     </div>
@@ -61,18 +71,24 @@ function SessionBox() {
           ) : (
             <>
               <div className="session-container flex flex-col items-center">
-                <h1 className="text-3xl text-white mt-5 font-semibold">
+                <h1
+                  className={`text-3xl text-white font-semibold ${londrina.className}`}
+                >
                   Choose A Role
                 </h1>
                 <div className="flex flex-wrap gap-2 ">
                   <div className="role-container" onClick={handleDonorClick}>
-                    <h1>Donor</h1>
+                    <h1 className={`font-semibold ${londrina.className}`}>
+                      Donor
+                    </h1>
                   </div>
                   <div
                     className="role-container"
                     onClick={handleResearcherClick}
                   >
-                    <h1>Researcher</h1>
+                    <h1 className={` font-semibold ${londrina.className}`}>
+                      Researcher
+                    </h1>
                   </div>
                 </div>
               </div>
