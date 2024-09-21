@@ -1,0 +1,4 @@
+[submodule "backend/backend/lib/illuminexswap"]
+	path = backend/backend/lib/illuminexswap
+	url = https://github.com/illumineXswap/contracts.git
+	ignore = dirty
