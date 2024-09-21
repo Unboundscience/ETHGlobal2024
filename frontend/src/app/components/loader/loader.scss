@@ -1,0 +1,53 @@
+.loader-container {
+  width: min(25rem, 95vw);
+  aspect-ratio: 9 / 10;
+  margin: 5rem auto;
+  // padding: 1.5rem 0rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  background: var(--glass-bg);
+  border-radius: 1rem;
+  border: 4px solid var(--glass-border);
+  backdrop-filter: var(--glass-filter);
+  box-shadow: var(--glass-shadow);
+
+  svg {
+    font-size: 8rem;
+    animation: loading infinite 1.5s ease-out;
+  }
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+.min-container {
+  width: unset;
+  aspect-ratio: unset;
+  background: transparent;
+  backdrop-filter: unset;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+  .loader-container {
+    margin: 1rem auto;
+    aspect-ratio: unset;
+    min-height: 70vh;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
