@@ -75,13 +75,13 @@ contract Treasury is Ownable {
     _;
   }
 
-  mapping(address => bool) public donors;
-  mapping(address => bool) public researchers;
-  mapping(address => bool) public approvers;
+  mapping(address => bool) private donors;
+  mapping(address => bool) private researchers;
+  mapping(address => bool) private approvers;
 
-  uint totalProposals;
-  uint totalDonors;
-  uint8 constant THRESHOLD_MIN = 80;
+  uint private totalProposals;
+  uint private totalDonors;
+  uint8 private constant THRESHOLD_MIN = 80;
 
   struct Proposal {
     uint fund;
@@ -93,22 +93,26 @@ contract Treasury is Ownable {
     bool isApproved;
   }
 
-  mapping(uint => Proposal) public proposals;
+  mapping(uint => Proposal) private proposals;
 
-  function addDonor(address donorAddress) external onlyOwner(){
-    donors[donorAddress] = true;
+  event Propose(uint indexed proposalId, uint fund, uint8 threshold, uint period);
+  event Vote(uint indexed proposalId, bool vote);
+  event Approve(uint indexed proposalId, uint fund, uint8 threshold);
+
+  function addDonor(address donor) external onlyOwner(){
+    donors[donor] = true;
     totalDonors++;
   }
 
-  function addResearcher(address researcherAddress) external onlyOwner() {
-    researchers[researcherAddress] = true;
+  function addResearcher(address researcher) external onlyOwner() {
+    researchers[researcher] = true;
   }
 
-  function addApprover(address approverAddress) external onlyOwner() {
-    approvers[approverAddress] = true;
+  function addApprover(address approver) external onlyOwner() {
+    approvers[approver] = true;
   }
 
-  function propose(SignIn calldata auth, uint fund) external onlyResearcher(auth.user) authenticated(auth) {
+  function propose(SignIn calldata auth, uint fund) external onlyResearcher(auth.user) authenticated(auth) returns (uint) {
     require(fund > 0);
     proposals[totalProposals] = Proposal({
       fund: fund,
@@ -119,7 +123,21 @@ contract Treasury is Ownable {
       totalYes: 0,
       isApproved: false
     });
-    totalProposals++;
+    return totalProposals++;
+  }
+
+  function getProposals(SignIn calldata auth, uint offset, uint limit) external view onlyDonor(auth.user) authenticated(auth) returns (Proposal[] memory) {
+    require(offset + limit < totalProposals);
+    Proposal[] memory _proposals = new Proposal[](limit);
+    for (uint i = offset;i - offset < limit; i++) {
+      _proposals[i] = proposals[i];
+    }
+    return _proposals;
+  }
+
+  function getProposal(SignIn calldata auth, uint proposalId) external view onlyDonor(auth.user) authenticated(auth) returns (Proposal memory) {
+    require(proposalId < totalProposals);
+    return proposals[proposalId];
   }
 
   function approve(SignIn calldata auth, uint proposalId) external onlyApprover(auth.user) authenticated(auth) {
