@@ -50,7 +50,7 @@ const Home: React.FC = () => {
           {texts[index].substring(0, subIndex)}
           <span className="blinking-cursor">|</span>
         </h1>
-        <w3m-button />
+        {/* <w3m-button /> */}
       </div>
     </div>
   );
