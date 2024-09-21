@@ -1,12 +1,20 @@
 import { ethers, utils, Contract } from "ethers";
 import addresses from "./addresses.json";
-// import usdcOut from "../../../../backend/out/USDC.sol/USDC.json";
+import usdcOut from "../../../../backend/out/USDC.sol/USDC.json";
 import governanceOut from "../../../../backend/out/GovernanceToken.sol/GovernanceToken.json";
-// import treasuryOut from "../../../../backend/out/Treasury.sol/Treasury.json";
+import treasuryOut from "../../../../backend/out/Treasury.sol/Treasury.json";
+import { Address } from "viem";
+// import { mintSepoliaTestnet } from "viem/chains";
+
+declare global {
+  interface Window {
+    ethereum?: ethers.providers.ExternalProvider;
+  }
+}
 
 let governanceContract: Contract;
-// let usdcContract;
-// let treasuryContract;
+let usdcContract: Contract;
+let treasuryContract: Contract;
 
 export const providerHandler = async () => {
   if (typeof window.ethereum === "undefined") {
@@ -29,12 +37,13 @@ export const providerHandler = async () => {
       governanceOut.abi,
       signer
     );
-    // usdcContract = new ethers.Contract(addresses.usdc, usdcOut.abi, signer);
-    // treasuryContract = new ethers.Contract(
-    //   addresses.treasury,
-    //   treasuryOut.abi,
-    //   signer
-    // );
+
+    usdcContract = new ethers.Contract(addresses.usdc, usdcOut.abi, signer);
+    treasuryContract = new ethers.Contract(
+      addresses.treasury,
+      treasuryOut.abi,
+      signer
+    );
 
     return address;
   } catch (error) {
@@ -69,9 +78,37 @@ export const getUsdc = async () => {
   }
 };
 
-export const getBalanceOf = async (address: string) => {
+export const governanceDecimals = async () => {
   try {
-    const n = await governanceContract.balanceOf(address);
+    const n = await governanceContract.decimals();
+    return n;
+  } catch (error) {
+    console.error("Error fetching governance decimals ", error);
+    throw error;
+  }
+};
+
+// Governance Write
+// export const governanceMint = async (address: Address, value: number) => {
+//     const n = await governanceContract.mint(address, value)
+//     return {
+
+//     }
+// };
+
+// USDC Read Functions
+export const usdcDecimals = async () => {
+  const n = await usdcContract.decimals();
+  try {
+    return n;
+  } catch (error) {
+    console.error("Error fetching usdcDecimals", error);
+  }
+};
+
+export const getBalanceOf = async (address: Address) => {
+  try {
+    const n = await usdcContract.balanceOf(address);
     return {
       value: n.toNumber(),
     };
@@ -80,3 +117,27 @@ export const getBalanceOf = async (address: string) => {
     throw error;
   }
 };
+
+export const allowance = async (owner: Address, spender: Address) => {
+  const n = await usdcContract.allowance(owner, spender);
+  try {
+    return n.toNumber;
+  } catch (error) {
+    console.error("Error fetching the allowance value:", error);
+    throw error;
+  }
+};
+
+//USDC Write Functions
+export const usdcApprove = async (spender: string, value: number) => {
+  const trx = await usdcContract.approve(spender, value);
+  return await trx.wait();
+};
+
+//Treasury Read Functions:
+export const getProposals = async (value: number) => {
+  const n = await treasuryContract.proposals(value);
+  return n;
+};
+
+//Treasury Write Functions
