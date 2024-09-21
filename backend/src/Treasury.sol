@@ -138,9 +138,9 @@ contract Treasury is Ownable {
   // function getProposals(SignIn calldata auth, uint offset, uint limit) external view 
   function getProposals(uint offset, uint limit) external view 
   // onlyDonor(auth.user) authenticated(auth) 
-  onlyDonor() 
+  // onlyDonor() 
   returns (Proposal[] memory) {
-    require(offset + limit < totalProposals);
+    // require(offset + limit < totalProposals);
     Proposal[] memory _proposals = new Proposal[](limit);
     for (uint i = offset;i - offset < limit; i++) {
       _proposals[i] = proposals[i];
@@ -151,9 +151,9 @@ contract Treasury is Ownable {
   // function getProposal(SignIn calldata auth, uint proposalId) external view 
   function getProposal(uint proposalId) external view 
   // onlyDonor(auth.user) authenticated(auth) 
-  onlyDonor()
+  // onlyDonor()
   returns (Proposal memory) {
-    require(proposalId < totalProposals);
+    // require(proposalId < totalProposals);
     return proposals[proposalId];
   }
 

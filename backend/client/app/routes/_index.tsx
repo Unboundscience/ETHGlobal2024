@@ -8,6 +8,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const ca = "0xbA0F335254b7740826bA0d745B19f0b1c377b37C"
   // const [auth, setAuth] = useState({})
 
   // const onGetAuth = async () => {
@@ -45,8 +46,8 @@ export default function Index() {
 
     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract("0x040DF4C284c6ed46C0C71C46c4648EeB5b6a1b8f", treasuryAbi.abi, signer);
-    await contract.addDonor("0x8d7E29bdd804E48Ff3013C26b344C21d091f7B09");
+    const contract = new ethers.Contract(ca, treasuryAbi.abi, signer);
+    await contract.addDonor(await signer.getAddress());
   }
 
   const addResearcher = async () => {
@@ -55,8 +56,8 @@ export default function Index() {
 
     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract("0x040DF4C284c6ed46C0C71C46c4648EeB5b6a1b8f", treasuryAbi.abi, signer);
-    await contract.addResearcher("0x6F882180fF78F91ef0FEA77833F5f8a99E6Da119");
+    const contract = new ethers.Contract(ca, treasuryAbi.abi, signer);
+    await contract.addResearcher(await signer.getAddress());
   }
 
   const propose = async () => {
@@ -65,7 +66,7 @@ export default function Index() {
 
     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract("0x040DF4C284c6ed46C0C71C46c4648EeB5b6a1b8f", treasuryAbi.abi, signer);
+    const contract = new ethers.Contract(ca, treasuryAbi.abi, signer);
     await contract.propose(10000);
   }
 
@@ -75,8 +76,8 @@ export default function Index() {
 
     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract("0x040DF4C284c6ed46C0C71C46c4648EeB5b6a1b8f", treasuryAbi.abi, signer);
-    await contract.getProposals(0,1);
+    const contract = new ethers.Contract(ca, treasuryAbi.abi, signer);
+    await contract.getProposal(1);
   }
 
   return (
