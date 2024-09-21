@@ -45,7 +45,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen flex flex-col items-center justify-center font-bold text-white font-retro px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center font-bold text-white font-retro px-3">
         <h1 className="text-2xl md:text-4xl lg:text-5xl mb-6 text-center">
           {texts[index].substring(0, subIndex)}
           <span className="blinking-cursor">|</span>

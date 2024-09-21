@@ -1,13 +1,13 @@
 import React from "react";
-import SelectRole from "../components/select-role";
+import Researcher from "../components/researcher";
 import Navbar from "../components/navbar";
 
 const page = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <SelectRole />
-    </div>
+      <Researcher />
+    </>
   );
 };
 
