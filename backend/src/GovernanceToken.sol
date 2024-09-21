@@ -13,8 +13,8 @@ contract GovernanceToken is ERC20, Ownable {
 
   function mint(uint value) external {
     // require(usdc.allowance(msg.sender, address(this)) > value);
-    require(usdc.balanceOf(msg.sender) >= value);
-    require(usdc.transfer(address(this), value));
+    // require(usdc.balanceOf(msg.sender) >= value);
+    // require(usdc.transfer(address(this), value));
     _mint(msg.sender, value);
   }
 }
