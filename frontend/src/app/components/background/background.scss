@@ -1,0 +1,237 @@
+.background {
+  position: absolute;
+  inset: 0 0;
+  overflow: hidden;
+  z-index: -1;
+  // pointer-events: none;
+  background-image: url(../../../../public/images/solarr-bg.png);
+
+  background-size: cover;
+  background-position: center;
+
+  .filter {
+    position: absolute;
+    inset: 0 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: grayscale(100%) contrast(120%);
+    transition: all 2s ease-out;
+
+    z-index: 50;
+  }
+
+  .mask-off {
+    -webkit-mask-composite: destination-out;
+
+    mask: url(../../../../public/images/mask.svg) no-repeat,
+      linear-gradient(#fff, #fff);
+    mask-size: 0;
+    mask-position: 94% 5%;
+    mask-composite: exclude;
+  }
+
+  .mask-connecting {
+    -webkit-mask-composite: destination-out;
+
+    mask: url(../../../../public/images/mask.svg) no-repeat,
+      linear-gradient(#fff, #fff);
+    mask-size: max(100vw, 100vh);
+    mask-position: min(-50vw, -50vh) min(-50vw, -50vh);
+    mask-composite: exclude;
+  }
+
+  .mask-connected {
+    -webkit-mask-composite: destination-out;
+
+    mask: url(../../../../public/images/mask.svg) no-repeat,
+      linear-gradient(#fff, #fff);
+    mask-size: max(180vw, 180vh);
+    mask-position: min(-50vh, -50vw) min(-50vh, -50vw);
+    mask-composite: exclude;
+  }
+
+  .background-container {
+    position: relative;
+
+    min-width: 100%;
+    height: 100vh;
+    aspect-ratio: 16/9;
+
+    #l0 {
+      z-index: 0;
+      will-change: transform;
+    }
+    #l1 {
+      z-index: 5;
+      will-change: transform;
+    }
+    #l2 {
+      z-index: 10;
+      will-change: transform;
+    }
+    #l3 {
+      z-index: 15;
+      will-change: transform;
+    }
+
+    #l0.anim {
+      animation: hover-l0 5s infinite alternate ease-in-out;
+    }
+    #l1.anim {
+      animation: hover-l1 5s 1s infinite alternate ease-in-out;
+    }
+    #l2.anim {
+      animation: hover-l2 5s 1.5s infinite alternate ease-in-out;
+    }
+    #l3.anim {
+      animation: hover-l2 2s 1.5s infinite alternate ease-in-out;
+    }
+
+    // static layers
+    // .layer-1 {
+    //   position: absolute;
+    //   inset: auto 0 0;
+    //   width: 100%;
+    //   height: 41vh;
+    //   object-fit: cover;
+    //   object-position: top;
+    // }
+    // .layer-1a {
+    //   position: absolute;
+    //   inset: 6vh 0;
+    //   width: 45vh;
+    //   object-fit: cover;
+    // }
+    // .layer-1b {
+    //   position: absolute;
+    //   inset: 38vh 0vh auto auto;
+    //   width: 40vh;
+    //   object-fit: cover;
+    // }
+
+    // // prop layers
+    // .prop {
+    //   position: absolute;
+    //   object-fit: contain;
+    // }
+
+    // // layer 0
+    // .prop-0 {
+    //   inset: 22vh 12vh auto auto;
+    //   width: 52vh;
+    // }
+    // .prop-0a {
+    //   inset: 55vh 0vh;
+    //   width: 30vh;
+    // }
+
+    // // layer 1
+    // .prop-1a {
+    //   width: 5.5vh;
+    //   inset: 47vh 28vh;
+    // }
+    // .prop-1b {
+    //   width: 18vh;
+    //   inset: 4vh 60vh auto auto;
+    // }
+    // .prop-1c {
+    //   width: 36vh;
+    //   inset: 13vh 18vh auto auto;
+    // }
+    // .prop-1d {
+    //   width: 20vh;
+    //   inset: auto 34vh 25vh;
+    // }
+    // .prop-1e {
+    //   width: 13.5vh;
+    //   inset: 31.5vh 11.5vh;
+    // }
+
+    // // layer 2
+    // .prop-2a {
+    //   width: 34vh;
+    //   inset: auto 34vh -10vh auto;
+    //   object-fit: cover;
+    //   object-position: top;
+    // }
+    // .prop-2b {
+    //   width: 130vh;
+    //   inset: 0vh 15%;
+    //   object-fit: cover;
+    //   object-position: top;
+    // }
+  }
+}
+
+$hover-move-l0: 2px;
+$hover-move-l1: 4px;
+$hover-move-l2: 6px;
+
+@keyframes hover-l0 {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-$hover-move-l0);
+  }
+  50% {
+    transform: translateY($hover-move-l0);
+  }
+  75% {
+    transform: translateY(-$hover-move-l0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes hover-l2 {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-$hover-move-l1);
+  }
+  50% {
+    transform: translateY($hover-move-l1);
+  }
+  75% {
+    transform: translateY(-$hover-move-l1);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes hover-l1 {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY($hover-move-l2);
+  }
+  50% {
+    transform: translateY(-$hover-move-l2);
+  }
+  75% {
+    transform: translateY($hover-move-l2);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+// mobile media query
+// @media screen and (max-width: 768px) {
+//   .background {
+//     background-image: url(../../assets/mobileBG.png);
+//     background-position: center;
+//     background-size: cover;
+
+//     .mask-connected {
+//       // mask-position: -50vh ;
+//     }
+
+//     .background-container {
+//       display: none;
+//     }
+//   }
+// }

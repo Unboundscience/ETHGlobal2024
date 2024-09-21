@@ -6,6 +6,8 @@ import { providerHandler } from "./config/contractInteraction";
 import { Londrina_Solid } from "@next/font/google";
 import { useAccount } from "wagmi";
 
+import { Background } from "./components/background";
+import Header from "./components/header/header";
 const londrina = Londrina_Solid({
   weight: ["300"], // Specify the weights you want
   subsets: ["latin"], // Specify the subsets
@@ -14,68 +16,42 @@ const londrina = Londrina_Solid({
 
 const Home: React.FC = () => {
   const texts = ["Unbound Science spreads technology globally."];
+  const { status, address } = useAccount();
 
-  const [index, setIndex] = useState(0);
-  const [subIndex, setSubIndex] = useState(0);
-  const [forward, setForward] = useState(true);
-  const { address } = useAccount();
+  const [backgroundState, setbackgroundState] = useState(0);
+  // useEffect(() => {
+  //   // governanceDecimals();
+  //   const init = async () => {
+  //     try {
+  //       await providerHandler();
 
-  useEffect(() => {
-    const timeout = setTimeout(
-      () => {
-        if (forward) {
-          // Typing
-          if (subIndex < texts[index].length) {
-            setSubIndex(subIndex + 1);
-          } else {
-            // Pause before deleting
-            setTimeout(() => setForward(false), 1000);
-          }
-        } else {
-          // Deleting
-          if (subIndex > 0) {
-            setSubIndex(subIndex - 1);
-          } else {
-            setForward(true);
-            setIndex((index + 1) % texts.length);
-          }
-        }
-      },
-      forward ? 100 : 50
-    ); // Typing speed (100ms) and deleting speed (50ms)
+  //       // const usdc = await getUsdc();
+  //       // console.log(usdc.address);
+  //       // console.log(await governanceDecimals());
+  //     } catch (error) {
+  //       console.error("Some Error in init", error);
+  //     }
+  //   };
 
-    return () => clearTimeout(timeout);
-  }, [subIndex, forward, index, texts]);
-
-  useEffect(() => {
-    // governanceDecimals();
-    const init = async () => {
-      try {
-        await providerHandler();
-
-        // const usdc = await getUsdc();
-        // console.log(usdc.address);
-        // console.log(await governanceDecimals());
-      } catch (error) {
-        console.error("Some Error in init", error);
-      }
-    };
-
-    init();
-  }, []);
+  //   init();
+  // }, []);
 
   return (
-    <div>
-      <Navbar />
-      <div className="min-h-screen flex flex-col items-center justify-center font-bold text-white font-retro px-4">
-        <h1
-          className={`text-2xl md:text-4xl lg:text-5xl mb-6 text-center ${londrina.className}`}
-        >
-          {texts[index].substring(0, subIndex)}
-        </h1>
-        <w3m-button />
-      </div>
-    </div>
+    // <div>
+    //   <Navbar />
+    //   <div className="min-h-screen flex flex-col items-center justify-center font-bold text-white font-retro px-4">
+    //     <h1
+    //       className={`text-2xl md:text-4xl lg:text-5xl mb-6 text-center ${londrina.className}`}
+    //     >
+    //       {texts[index].substring(0, subIndex)}
+    //     </h1>
+    //     {/* <w3m-button /> */}
+    //   </div>
+    // </div>
+    <>
+      <Background status={status} />
+      <Header setbackgroundState={setbackgroundState} status={status} />
+    </>
   );
 };
 
