@@ -5,9 +5,10 @@ import Navbar from "./components/navbar";
 
 const Home: React.FC = () => {
   const texts = [
-    "A creator economy for scientists and inventors, powered by web3.",
-    "Unlocking secret technologies and preserving/sharing them.",
-    "Using blockchain to revolutionize the world since the industrial revolution.",
+    "A creator economy for scientists.",
+    "Unbound Science spreads technology globally.",
+    "Web3 unlocks secret technologies.",
+    "Blockchain preserves and shares inventions.",
   ];
 
   const [index, setIndex] = useState(0);
