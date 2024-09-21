@@ -27,6 +27,11 @@ contract Treasury is Ownable {
     _;
   }
 
+  modifier onlyDebug() {
+    require(owner() == msg.sender);
+    _;
+  }
+
   mapping(address => bool) public donors;
   mapping(address => bool) public researchers;
   mapping(address => bool) public approvers;
@@ -107,5 +112,16 @@ contract Treasury is Ownable {
     require(proposals[proposalId].isApproved);
     require(token.balanceOf(address(this)) >= proposals[proposalId].fund);
     require(token.transferFrom(address(this), msg.sender, proposals[proposalId].fund));
+  }
+
+  function setThreshold(uint proposalId, uint8 threshold) external onlyDebug {
+    require(proposalId < totalProposals);
+    require(threshold >= 0 && threshold <= 100);
+    proposals[proposalId].threshold = threshold;
+  }
+
+  function setPeriod(uint proposalId, uint period) external onlyDebug {
+    require(period >= 0 && period <= 60 * 60 * 24);
+    proposals[proposalId].period = period;
   }
 }
