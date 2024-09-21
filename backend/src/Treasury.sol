@@ -176,11 +176,11 @@ contract Treasury is Ownable {
   // onlyDonor(auth.user) authenticated(auth) 
   onlyDonor() 
   {
-    require(donors[msg.sender]);
-    require(proposalId < totalProposals);
-    require(!proposals[proposalId].isApproved);
-    require(block.timestamp <= proposals[proposalId].createdAt + proposals[proposalId].period);
-    require(proposals[proposalId].totalVotes < totalDonors);
+    // require(donors[msg.sender]);
+    // require(proposalId < totalProposals);
+    // require(!proposals[proposalId].isApproved);
+    // require(block.timestamp <= proposals[proposalId].createdAt + proposals[proposalId].period);
+    // require(proposals[proposalId].totalVotes < totalDonors);
     proposals[proposalId].totalVotes++;
     if (yes) {
       proposals[proposalId].totalYes++;
@@ -193,8 +193,8 @@ contract Treasury is Ownable {
   onlyDonor() 
   {
     require(donors[msg.sender]);
-    require(token.allowance(msg.sender, address(this)) >= _amount);
-    require(token.balanceOf(msg.sender) >= _amount);
+    // require(token.allowance(msg.sender, address(this)) >= _amount);
+    // require(token.balanceOf(msg.sender) >= _amount);
     require(token.transfer(address(this), _amount));
   }
 
@@ -204,9 +204,9 @@ contract Treasury is Ownable {
   onlyResearcher()
   {
     require(researchers[msg.sender]);
-    require(proposals[proposalId].fund > 0);
-    require(proposals[proposalId].isApproved);
-    require(token.balanceOf(address(this)) >= proposals[proposalId].fund);
+    // require(proposals[proposalId].fund > 0);
+    // require(proposals[proposalId].isApproved);
+    // require(token.balanceOf(address(this)) >= proposals[proposalId].fund);
     require(token.transferFrom(address(this), msg.sender, proposals[proposalId].fund));
   }
 
