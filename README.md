@@ -23,3 +23,13 @@ When a proposal reaches the required threshold within the specified time frame, 
 ### Approver Role
 
 Approvers play a critical role in validating proposals and ensuring funds are allocated responsibly. They review approved proposals and facilitate the transfer of funds to researchers after exercising their discretion to approve the proposal.
+
+## Decentralization Plan
+
+To move towards a fully decentralized, trustless on-chain approach, we aim to integrate with external automation tools such as:
+
+Chainlink Automation: Utilize their cron job capabilities to automate the approval process based on predefined conditions.
+
+Layer 0: Leverage their on-chain logic and automation features to create a more robust and decentralized approval system.
+
+Other Blockchain Interoperability Solutions: Explore integration with other blockchain-based interop solutions to facilitate seamless automation and approval processes.
