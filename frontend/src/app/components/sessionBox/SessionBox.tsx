@@ -5,6 +5,9 @@ import { DonorSection } from "../DonorSection";
 import { ResearcherSection } from "../ResearcherSection";
 import { FaArrowLeft } from "react-icons/fa";
 import { Londrina_Solid } from "@next/font/google";
+import Figure1 from "../../../../public/images/figure.png";
+import Figure2 from "../../../../public/images/flipfigure.png";
+import Image from "next/image";
 const londrina = Londrina_Solid({
   weight: ["300"],
   subsets: ["latin"],
@@ -14,6 +17,7 @@ const londrina = Londrina_Solid({
 function SessionBox() {
   const [passLoading, setPassloading] = useState(false);
   const [showSection, setShowSection] = useState(false);
+  const [showMintSection, setShowMintSection] = useState(false);
   const [actor, setActor] = useState("None");
 
   const handleDonorClick = () => {
@@ -38,16 +42,23 @@ function SessionBox() {
                 <div className="session-container flex flex-col items-center">
                   <div className="flex items-center">
                     <FaArrowLeft
-                      onClick={() => setShowSection(false)}
+                      onClick={() => {
+                        showMintSection
+                          ? setShowMintSection(false)
+                          : setShowSection(false);
+                      }}
                       className="text-white absolute left-0 ml-10"
                     />
                     <h1
                       className={`text-3xl text-white font-semibold ${londrina.className}`}
                     >
-                      Donor
+                      {showMintSection ? <>Donate USDC</> : <>Donor</>}
                     </h1>
                   </div>
-                  <DonorSection />
+                  <DonorSection
+                    showMintSection={showMintSection}
+                    setShowMintSection={setShowMintSection}
+                  />
                 </div>
               ) : (
                 <>
@@ -78,16 +89,22 @@ function SessionBox() {
                 </h1>
                 <div className="flex flex-wrap gap-2 ">
                   <div className="role-container" onClick={handleDonorClick}>
-                    <h1 className={`font-semibold ${londrina.className}`}>
+                    <h1
+                      className={`text-4xl font-semibold mr-5 ${londrina.className}`}
+                    >
                       Donor
                     </h1>
+                    <Image src={Figure1} alt="" />
                   </div>
                   <div
                     className="role-container"
                     onClick={handleResearcherClick}
                   >
-                    <h1 className={` font-semibold ${londrina.className}`}>
-                      Researcher
+                    <Image src={Figure2} alt="" />
+                    <h1
+                      className={` text-4xl font-semibold ml-5 ${londrina.className}`}
+                    >
+                      Scientist
                     </h1>
                   </div>
                 </div>

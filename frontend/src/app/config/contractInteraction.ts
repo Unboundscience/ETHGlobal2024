@@ -129,15 +129,41 @@ export const allowance = async (owner: Address, spender: Address) => {
 };
 
 //USDC Write Functions
-export const usdcApprove = async (spender: string, value: number) => {
-  const trx = await usdcContract.approve(spender, value);
-  return await trx.wait();
-};
 
 //Treasury Read Functions:
-export const getProposals = async (value: number) => {
-  const n = await treasuryContract.proposals(value);
+// export const getProposals = async (value: number) => {
+//   const n = await treasuryContract.proposals(value);
+//   return n;
+// };
+
+//Treasury Write Functions
+
+export const getProposals = async (offset: number = 0, limit: number = 50) => {
+  const n = await treasuryContract.getProposals(offset, limit);
   return n;
 };
 
-//Treasury Write Functions
+export const getProposal = async (id: number) => {
+  const n = await treasuryContract.getProposal(id);
+  return n;
+};
+
+export const propose = async (value: number) => {
+  const n = await treasuryContract.propose(value);
+  return n;
+};
+
+export const mint = async (value: number) => {
+  const n = await governanceContract.mint(value);
+  return n;
+};
+
+export const usdcApprove = async (address: Address, value: number) => {
+  const n = await usdcContract.approve(address, value);
+  return n.wait();
+};
+
+export const governanceApprove = async (address: Address, value: number) => {
+  const n = await governanceContract.approve(address, value);
+  return n.wait();
+};
